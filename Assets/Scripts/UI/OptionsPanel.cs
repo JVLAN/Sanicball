@@ -26,7 +26,7 @@ namespace Sanicball.UI
         public Text motionBlur;
         public Text bloom;
         public Text reflectionQuality;
-        public Text ballLogos;
+        public Text ballNicknames;
 
         [Header("Gameplay")]
         public Text controlMode;
@@ -91,7 +91,7 @@ namespace Sanicball.UI
             motionBlur.text = tempSettings.motionBlur ? "On" : "Off";
             bloom.text = tempSettings.bloom ? "On" : "Off";
             reflectionQuality.text = tempSettings.reflectionQuality.ToString();
-            ballLogos.text = tempSettings.showPlayerNames ? "On" : "Off";
+            ballNicknames.text = tempSettings.showPlayerNames ? "On" : "Off";
 
 			controlMode.text = tempSettings.useOldControls ? "Rotate manually (Precise)" : "Follow velocity (Intuitive)";
             cameraSpeedMouse.text = tempSettings.oldControlsMouseSpeed.ToString("n1");
@@ -277,7 +277,7 @@ namespace Sanicball.UI
             UpdateFields();
         }
 
-        public void BallLogoToggle()
+        public void BallNicknameToggle()
         {
             tempSettings.showPlayerNames = !tempSettings.showPlayerNames;
             UpdateFields();

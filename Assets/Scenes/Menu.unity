@@ -10682,7 +10682,7 @@ MonoBehaviour:
   motionBlur: {fileID: 267449048}
   bloom: {fileID: 1789286929}
   reflectionQuality: {fileID: 2092730869}
-  ballLogos: {fileID: 1259660601}
+  ballNicknames: {fileID: 1259660601}
   controlMode: {fileID: 1036393988}
   cameraSpeedMouse: {fileID: 465757182}
   cameraSpeedKeyboard: {fileID: 556695978}
@@ -12113,11 +12113,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 144490, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_Name
-      value: BallLogos
+      value: BallNicknames
       objectReference: {fileID: 0}
     - target: {fileID: 11424328, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_Text
-      value: Ball logos
+      value: Nickname on ball
       objectReference: {fileID: 0}
     - target: {fileID: 11463696, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_Text
@@ -12149,7 +12149,7 @@ Prefab:
       objectReference: {fileID: 1172321374}
     - target: {fileID: 11480510, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BallLogoToggle
+      value: BallNicknameToggle
       objectReference: {fileID: 0}
     - target: {fileID: 11480510, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
