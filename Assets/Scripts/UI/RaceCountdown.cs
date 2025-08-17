@@ -22,12 +22,8 @@ namespace Sanicball.UI
 
         public event System.EventHandler OnCountdownFinished;
 
-        ESportMode esport;
-
+        
         void Start() {
-            if (ActiveData.ESportsFullyReady) {
-                esport = Instantiate(ActiveData.ESportsPrefab);
-            }
         }
 
         public void ApplyOffset(float time)
@@ -72,10 +68,6 @@ namespace Sanicball.UI
                         UISound.Play(countdown2);
                         if (OnCountdownFinished != null)
                             OnCountdownFinished(this, new System.EventArgs());
-                        if (esport)
-                        {
-                            esport.StartTheShit();
-                        }
                         break;
 
                     case 0:

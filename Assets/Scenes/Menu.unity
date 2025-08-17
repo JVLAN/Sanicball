@@ -10682,7 +10682,7 @@ MonoBehaviour:
   motionBlur: {fileID: 267449048}
   bloom: {fileID: 1789286929}
   reflectionQuality: {fileID: 2092730869}
-  eSportsReady: {fileID: 1259660601}
+  ballLogos: {fileID: 1259660601}
   controlMode: {fileID: 1036393988}
   cameraSpeedMouse: {fileID: 465757182}
   cameraSpeedKeyboard: {fileID: 556695978}
@@ -12113,15 +12113,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 144490, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_Name
-      value: ESports
+      value: BallLogos
       objectReference: {fileID: 0}
     - target: {fileID: 11424328, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_Text
-      value: E-sports ready
+      value: Ball logos
       objectReference: {fileID: 0}
     - target: {fileID: 11463696, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_Text
-      value: '[Ready]'
+      value: '[Off]'
       objectReference: {fileID: 0}
     - target: {fileID: 22431018, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_LocalScale.x
@@ -12149,7 +12149,7 @@ Prefab:
       objectReference: {fileID: 1172321374}
     - target: {fileID: 11480510, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ESportsToggle
+      value: BallLogoToggle
       objectReference: {fileID: 0}
     - target: {fileID: 11480510, guid: 77af82ed99a824045a652fbca65e44a3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
