@@ -111,7 +111,7 @@ namespace Sanicball.Logic
             manager.InitLocalMatch();
         }
 
-        public void JoinOnlineGame(string ip = "127.0.0.1", int port = 25000)
+        public void JoinOnlineGame(string ip = "10.1.0.51", int port = 25000)
         {
             JoinOnlineGame(new System.Net.IPEndPoint(System.Net.IPAddress.Parse(ip), port));
         }
