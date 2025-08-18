@@ -22,15 +22,12 @@ namespace Sanicball
 
         private void Start()
         {
-            if (string.IsNullOrEmpty(ActiveData.GameSettings.nickname) || ActiveData.GameSettings.nickname == "Player")
+            // Always prompt for a nickname on startup and prefill if one exists
+            setNicknameGroup.alpha = 1f;
+            intro.enabled = false;
+            if (nicknameField != null)
             {
-                //Set nickname before continuing
-                setNicknameGroup.alpha = 1f;
-            }
-            else
-            {
-                setNicknameGroup.alpha = 0f;
-                intro.enabled = true;
+                nicknameField.text = ActiveData.GameSettings.nickname ?? string.Empty;
             }
         }
     }

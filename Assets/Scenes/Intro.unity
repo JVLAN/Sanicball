@@ -552,7 +552,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: Pseudo
 --- !u!222 &1164441630
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -673,9 +673,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Hello!
+  m_Text: 'Bonjour!
 
-    Please enter a nickname to use in online races.'
+    S''il te plaît entre ton pseudo INTRANET JVLAN.'
 --- !u!222 &1630712231
 CanvasRenderer:
   m_ObjectHideFlags: 0
