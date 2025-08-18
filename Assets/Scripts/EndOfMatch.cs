@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Sanicball.Data;
 using Sanicball.Logic;
 using Sanicball.UI;
+using SanicballCore;
 using UnityEngine;
 
 namespace Sanicball
@@ -73,9 +76,20 @@ namespace Sanicball
                 //cam.enabled = true;
             }
             activeScoreboard.DisplayResults(manager);
+            ExportResults(manager);
 
-            RacePlayer[] movablePlayers = manager.Players.Where(a => a.RaceFinished && !a.FinishReport.Disqualified).OrderBy(a => a.FinishReport.Position).ToArray();
-            for (int i = 0; i < movablePlayers.Length; i++)
+            List<RacePlayer> movablePlayers = new List<RacePlayer>();
+            for (int i = 0; i < manager.PlayerCount; i++)
+            {
+                RacePlayer rp = manager[i];
+                if (rp.RaceFinished && !rp.FinishReport.Disqualified)
+                {
+                    movablePlayers.Add(rp);
+                }
+            }
+            movablePlayers.Sort((a, b) => a.FinishReport.Position.CompareTo(b.FinishReport.Position));
+
+            for (int i = 0; i < movablePlayers.Count; i++)
             {
                 Vector3 spawnpoint = lowerPositionsSpawnpoint.position;
                 if (i < topPositionSpawnpoints.Length)
@@ -93,6 +107,50 @@ namespace Sanicball
                     playerToMove.Ball.gameObject.layer = LayerMask.NameToLayer("Racer");
                     movedPlayers.Add(playerToMove);
                 }
+            }
+        }
+
+        private void ExportResults(RaceManager manager)
+        {
+            try
+            {
+                string rootPath = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
+                string logDir = Path.Combine(rootPath, "log");
+                Directory.CreateDirectory(logDir);
+
+                string mapName = ActiveData.Stages[manager.Settings.StageId].name;
+                foreach (char c in Path.GetInvalidFileNameChars())
+                {
+                    mapName = mapName.Replace(c, '_');
+                }
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                string filePath = Path.Combine(logDir, string.Format("{0}_{1}.txt", mapName, timestamp));
+
+                using (var writer = new StreamWriter(filePath, false))
+                {
+                    writer.WriteLine("Placement\tPseudo\tTime");
+                    List<RacePlayer> players = new List<RacePlayer>();
+                    for (int i = 0; i < manager.PlayerCount; i++)
+                    {
+                        RacePlayer rp = manager[i];
+                        if (rp.RaceFinished && !rp.FinishReport.Disqualified)
+                        {
+                            players.Add(rp);
+                        }
+                    }
+                    players.Sort((a, b) => a.FinishReport.Position.CompareTo(b.FinishReport.Position));
+                    foreach (RacePlayer p in players)
+                    {
+                        string pos = p.FinishReport.Position.ToString();
+                        string name = p.Name;
+                        string time = Utils.GetTimeString(p.FinishReport.Time);
+                        writer.WriteLine(string.Format("{0}\t{1}\t{2}", pos, name, time));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to export results: " + ex.Message);
             }
         }
     }
