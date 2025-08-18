@@ -215,18 +215,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCanvasPrefab: {fileID: 11496758, guid: 8cee92b7e27d99042b0a050e833b027a, type: 2}
+  playerCanvasLobbyOffset: 0
   startPlaying: 0
   fadeIn: 0
   playlist:
   - name: Sonic Generations - vs. Metal Sonic (Stardust Speedway Bad Future) JP [Generations
       Mix]
     clip: {fileID: 8300000, guid: c03bfee26a820a346acb833fe9c55e6e, type: 3}
-  - name: Deadmau5 - Infra Super Turbo Pig Cart Racer
-    clip: {fileID: 8300000, guid: ef283d9cd9a1df049aa8104acd1f9467, type: 3}
+  - name: 'Hechizeros Band - El Sonidito '
+    clip: {fileID: 8300000, guid: 63422b9ba36c9544ebd77bbf0a6e3d25, type: 3}
   - name: Sonic Adventure 2 - City Escape
     clip: {fileID: 8300000, guid: f06d9b26bb25af2419c9fac3323bf81d, type: 3}
-  - name: Tube and Berger - Straight Ahead (Instrumental)
-    clip: {fileID: 8300000, guid: 903093182a60b404b8e1c7e1b3683647, type: 3}
+  - name: Initial D - Running in The 90s
+    clip: {fileID: 8300000, guid: d1891a7e9be5a2c4783ff43dda606000, type: 3}
   - name: Sonic R - Can you feel the Sunshine?
     clip: {fileID: 8300000, guid: 2f11158510addae4e9aa863d642470c6, type: 3}
   - name: Sonic X theme song (Gotta go fast)
@@ -237,16 +238,16 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d23cf9326a1ddb14ebd6b635fa272c81, type: 3}
   - name: Sonic the Hedgehog CD - Intro (Toot Toot Sonic Warrior)
     clip: {fileID: 8300000, guid: 76ab3b513c848a8479975f626779e5f3, type: 3}
-  - name: Ugly Baby - Pronto
-    clip: {fileID: 8300000, guid: 1d9b7697ce54b7c4b9ec6bc3eeff5d8a, type: 3}
-  - name: Katamari Damacy - Main Theme
-    clip: {fileID: 8300000, guid: 8b1be8e83aad861459e1577652dd3ec3, type: 3}
-  - name: Guile's Theme (goes with everything)
-    clip: {fileID: 8300000, guid: d1716965cd9df0147baf075f821843a1, type: 3}
-  - name: Erland - Singing Birds
-    clip: {fileID: 8300000, guid: 758413b45beffa24196bf83fee8b5444, type: 3}
-  - name: Cynematic - Space City
-    clip: {fileID: 8300000, guid: 22208ce0732d0284cbb8dd1506ea252f, type: 3}
+  - name: The Tokugawa Cup Noodle Prohibition feat. Nenerobo & Mikudayo
+    clip: {fileID: 8300000, guid: bf021b67afafc404c945903473e3e42a, type: 3}
+  - name: Dr. Love - Don't stand so close
+    clip: {fileID: 8300000, guid: 49c9b0a8302a21d4e9530bd1b285c832, type: 3}
+  - name: 'The HampsterDance Song '
+    clip: {fileID: 8300000, guid: bd74a5808d59e43429715dedd8b31d7f, type: 3}
+  - name: Los Del Rio - Macarena
+    clip: {fileID: 8300000, guid: bc81f441ef2bb424792f6f7e6e179e8a, type: 3}
+  - name: Axel F - Crazy Frog
+    clip: {fileID: 8300000, guid: 892e8e6d446866949b193d38d1119901, type: 3}
   - name: Initial D - Deja Vu
     clip: {fileID: 8300000, guid: 8e6a1b8eeb5643741871ab2b85cdef38, type: 3}
   fastSource: {fileID: 8200002}
