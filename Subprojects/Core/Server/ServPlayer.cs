@@ -17,6 +17,11 @@ namespace SanicballCore.Server
         public Stopwatch RacingTimeout { get; }
         public bool TimeoutMessageSent { get; set; }
 
+        //Race result data
+        public double? RaceTime { get; set; }
+        public int? FinishPosition { get; set; }
+        public bool Disqualified { get; set; }
+
         public ServPlayer(Guid clientGuid, ControlType ctrlType, int initialCharacterId)
         {
             RacingTimeout = new Stopwatch();

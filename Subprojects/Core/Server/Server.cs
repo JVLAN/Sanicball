@@ -77,6 +77,15 @@ namespace SanicballCore.Server
             CharacterTier.Odd,          //Ogre
         };
 
+        private readonly string[] stageNames = new[]
+        {
+            "GreenHillZone",
+            "Desert",
+            "SnowyMountain",
+            "FlameCore",
+            "RainbowRoad"
+        };
+
         public event EventHandler<LogArgs> OnLog;
 
         //Server utilities
@@ -96,6 +105,7 @@ namespace SanicballCore.Server
         private MatchSettings matchSettings;
         private string motd;
         private bool inRace;
+        private int finishCount;
 
         #region Timers
 
@@ -766,7 +776,7 @@ namespace SanicballCore.Server
                         if (p.RacingTimeout.Elapsed.TotalSeconds > matchSettings.DisqualificationTime)
                         {
                             Log("A player was too slow to race and has been disqualified.");
-                            FinishRace(p);
+                            FinishRace(p, 0, true);
 
                             SendToAll(new DoneRacingMessage(p.ClientGuid, p.CtrlType, 0, true));
                         }
@@ -1203,7 +1213,7 @@ namespace SanicballCore.Server
                                         ServPlayer player = players.FirstOrDefault(a => a.ClientGuid == castedMsg.ClientGuid && a.CtrlType == castedMsg.CtrlType);
                                         if (player != null)
                                         {
-                                            FinishRace(player);
+                                            FinishRace(player, castedMsg.RaceTime, castedMsg.Disqualified);
                                         }
                                         SendToAll(matchMessage);
                                     }
@@ -1255,7 +1265,11 @@ namespace SanicballCore.Server
                     a.CurrentlyRacing = false;
                     a.RacingTimeout.Reset();
                     a.TimeoutMessageSent = false;
+                    a.RaceTime = null;
+                    a.FinishPosition = null;
+                    a.Disqualified = false;
                 });
+                finishCount = 0;
                 clients.ForEach(a => a.WantsToReturnToLobby = false);
 
                 bool matchSettingsChanged = false;
@@ -1368,16 +1382,25 @@ namespace SanicballCore.Server
             SendToAll(new AutoStartTimerMessage(false));
         }
 
-        private void FinishRace(ServPlayer p)
+        private void FinishRace(ServPlayer p, double raceTime, bool disqualified)
         {
             p.CurrentlyRacing = false;
             p.RacingTimeout.Reset();
             SendToAll(new RaceTimeoutMessage(p.ClientGuid, p.CtrlType, 0));
 
+            p.Disqualified = disqualified;
+            if (!disqualified)
+            {
+                finishCount++;
+                p.FinishPosition = finishCount;
+                p.RaceTime = raceTime;
+            }
+
             int playersStillRacing = players.Count(a => a.CurrentlyRacing);
             if (playersStillRacing == 0)
             {
                 Log("All players are done racing.");
+                ExportResults();
                 if (matchSettings.AutoReturnTime > 0)
                 {
                     Broadcast("Returning to lobby in " + matchSettings.AutoReturnTime + " seconds");
@@ -1387,6 +1410,34 @@ namespace SanicballCore.Server
             else
             {
                 Log(playersStillRacing + " players(s) still racing");
+            }
+        }
+
+        private void ExportResults()
+        {
+            try
+            {
+                string stage = (matchSettings.StageId >= 0 && matchSettings.StageId < stageNames.Length)
+                    ? stageNames[matchSettings.StageId]
+                    : "Stage" + matchSettings.StageId;
+                string fileName = string.Format("{0}_{1:yyyyMMdd_HHmmss}.txt", stage, DateTime.Now);
+                using (var sw = new StreamWriter(fileName))
+                {
+                    sw.WriteLine("Placement\tName\tTime");
+                    foreach (var p in players.Where(a => a.FinishPosition.HasValue && !a.Disqualified)
+                                             .OrderBy(a => a.FinishPosition.Value))
+                    {
+                        var client = clients.FirstOrDefault(c => c.Guid == p.ClientGuid);
+                        string name = client != null ? client.Name : p.ClientGuid.ToString();
+                        string timeStr = TimeSpan.FromSeconds(p.RaceTime ?? 0).ToString();
+                        sw.WriteLine($"{p.FinishPosition}\t{name}\t{timeStr}");
+                    }
+                }
+                Log("Race results saved to " + fileName);
+            }
+            catch (Exception ex)
+            {
+                Log("Failed to save race results: " + ex.Message, LogType.Error);
             }
         }
 
