@@ -119,6 +119,57 @@ MonoBehaviour:
     collisionMesh: {fileID: 0}
     tier: 0
     hidden: 0
+  - name: JVLAN
+    artBy: JVLAN Team
+    stats:
+      rollSpeed: 100
+      airSpeed: 15
+      jumpHeight: 14
+      grip: 0
+    material: {fileID: 2100000, guid: 2ab3091afa74e1c41971247ba2981cff, type: 2}
+    icon: {fileID: 21300000, guid: 34f7713718714ae4ca4f1123188592da, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    minimapIcon: {fileID: 2100000, guid: 854cef05583eac843a1068cd8c3b211c, type: 2}
+    trail: {fileID: 2100000, guid: 34fde866a14b20048baebd76cf043737, type: 2}
+    ballSize: 1
+    alternativeMesh: {fileID: 0}
+    collisionMesh: {fileID: 0}
+    tier: 0
+    hidden: 0
+  - name: Cyber Shaping
+    artBy: Cyber Shaping Team
+    stats:
+      rollSpeed: 100
+      airSpeed: 15
+      jumpHeight: 14
+      grip: 0
+    material: {fileID: 2100000, guid: 942a0e82222bf6547b2f37c3eda41eab, type: 2}
+    icon: {fileID: 21300000, guid: 71a3c226d2aaba049afed25c9716b152, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    minimapIcon: {fileID: 2100000, guid: 854cef05583eac843a1068cd8c3b211c, type: 2}
+    trail: {fileID: 2100000, guid: b6acb21898408264a9c63a10e54d4dea, type: 2}
+    ballSize: 1
+    alternativeMesh: {fileID: 0}
+    collisionMesh: {fileID: 0}
+    tier: 0
+    hidden: 0
+  - name: Poli Systems
+    artBy: Poli Systems Team
+    stats:
+      rollSpeed: 100
+      airSpeed: 15
+      jumpHeight: 14
+      grip: 0
+    material: {fileID: 2100000, guid: c44b1a349a982824d9f8871c8b3ff1b9, type: 2}
+    icon: {fileID: 21300000, guid: 69829433590663b4bad176d65eea024c, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    minimapIcon: {fileID: 2100000, guid: 854cef05583eac843a1068cd8c3b211c, type: 2}
+    trail: {fileID: 2100000, guid: 64979484a045bc54a8d4f39ef84cefc6, type: 2}
+    ballSize: 1
+    alternativeMesh: {fileID: 0}
+    collisionMesh: {fileID: 0}
+    tier: 0
+    hidden: 0
   - name: Ame Roes
     artBy: Reddit user o_opc
     stats:
@@ -346,10 +397,6 @@ MonoBehaviour:
     verbose: 1
     disabled: 1
   christmasHat: {fileID: 132204, guid: 59d3895ecfc783e4289b0c51098a0429, type: 2}
-  eSportsTrail: {fileID: 2100000, guid: 535ce71ad14791d40b6cbe98a2276283, type: 2}
-  eSportsHat: {fileID: 132204, guid: 8db695c5167175b4f8c02e1d1f7e5b99, type: 2}
-  eSportsMusic: {fileID: 8300000, guid: 44aeddca0c186224090a76d97139eaa4, type: 3}
-  eSportsPrefab: {fileID: 11400000, guid: f55190f64bbb0c349bcd0f128756a753, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -359,7 +406,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: characters.Array.size
-      value: 15
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: characters.Array.data[1].material
@@ -382,117 +429,23 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: characters.Array.data[0].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 45106eab8e7289244b88d1cb65eee2e1,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[1].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 15a6f88a301145843ac46f045b3e8066,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[2].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: e55fb0a0a812fcf489b54e1fd0b4947c,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[3].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: f54471598afdcd14e979c1d54bd3d919,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[4].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 4e28aa2bbb0876d47814133089db668b,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[5].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 153019c126cd5c9439278368f95954e0,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[6].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 2b8334ffc94ee0a45982e2c43794887a,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[7].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: b6aa54ecf652de74c9ebd8704033fc09,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[8].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 941c947f96962a14a81d367db07fd89b,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[9].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 95b3481512f3b4b489b578b08c88ca20,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[10].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 2788a9b91b66e0d41847802d974f3d81,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[11].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 2d3a2b172aa7be04495f0a7c6c77ebee,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[12].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: 1a49a1fa6c164e5459bd304bc831a180,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[13].icon
-      value: 
-      objectReference: {fileID: 21300000, guid: fcac47643ed0b884ba66157d894d95dd,
-        type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[14].name
-      value: New
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[14].title
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[14].artBy
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[14].material
-      value: 
-      objectReference: {fileID: 2100000, guid: 5d9088b95aa9a1f49bf649ffcabb4a69, type: 2}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[14].alternativeMesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 43fcb6325254fce4992c0110ac748a28, type: 3}
-    - target: {fileID: 0}
-      propertyPath: characters.Array.data[14].collisionMesh
-      value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 0}
       propertyPath: characters.Array.data[0].stats.airSpeed
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: characters.Array.data[7].stats.rollSpeed
+      propertyPath: characters.Array.data[10].stats.rollSpeed
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: characters.Array.data[9].stats.rollSpeed
+      propertyPath: characters.Array.data[12].stats.rollSpeed
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: characters.Array.data[8].collisionMesh
+      propertyPath: characters.Array.data[11].collisionMesh
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: characters.Array.data[13].hyperspeed
+      propertyPath: characters.Array.data[16].hyperspeed
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

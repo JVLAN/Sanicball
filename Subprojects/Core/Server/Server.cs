@@ -59,6 +59,9 @@ namespace SanicballCore.Server
             CharacterTier.Normal,       //Sanic
             CharacterTier.Normal,       //Knackles
             CharacterTier.Normal,       //Taels
+            CharacterTier.Normal,       //JVLAN
+            CharacterTier.Normal,       //CyberShaping
+            CharacterTier.Normal,       //Poli Systems
             CharacterTier.Normal,       //Ame
             CharacterTier.Normal,       //Shedew
             CharacterTier.Normal,       //Roge
@@ -70,7 +73,7 @@ namespace SanicballCore.Server
             CharacterTier.Normal,       //Bloze
             CharacterTier.Normal,       //Vactor
             CharacterTier.Hyperspeed,   //Super Sanic
-            CharacterTier.Odd,       //Metal Sanic
+            CharacterTier.Odd,          //Metal Sanic
             CharacterTier.Odd,          //Ogre
         };
 
