@@ -1,6 +1,10 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using Sanicball.Data;
 using Sanicball.Logic;
 using Sanicball.UI;
 using UnityEngine;
@@ -73,6 +77,7 @@ namespace Sanicball
                 //cam.enabled = true;
             }
             activeScoreboard.DisplayResults(manager);
+            ExportResults(manager);
 
             RacePlayer[] movablePlayers = manager.Players.Where(a => a.RaceFinished && !a.FinishReport.Disqualified).OrderBy(a => a.FinishReport.Position).ToArray();
             for (int i = 0; i < movablePlayers.Length; i++)
@@ -95,5 +100,37 @@ namespace Sanicball
                 }
             }
         }
+
+        private void ExportResults(RaceManager manager)
+        {
+            try
+            {
+                string mapName = ActiveData.Stages[manager.Settings.StageId].name;
+                string fileName = string.Format("{0}_{1:yyyy-MM-dd_HH-mm-ss}.txt", mapName, DateTime.Now);
+                string path = Path.Combine(Application.persistentDataPath, fileName);
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("Placement\tPseudo\tTime");
+
+                var orderedPlayers = manager.Players
+                    .Where(p => p.RaceFinished && !p.FinishReport.Disqualified)
+                    .OrderBy(p => p.FinishReport.Position);
+
+                foreach (var p in orderedPlayers)
+                {
+                    string pseudo = p.Name;
+                    string time = p.FinishReport.Time.ToString();
+                    sb.AppendLine(string.Format("{0}\t{1}\t{2}", p.FinishReport.Position, pseudo, time));
+                }
+
+                File.WriteAllText(path, sb.ToString());
+                Debug.Log("Scoreboard exported to " + path);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to export scoreboard: " + ex.Message);
+            }
+        }
     }
 }
+
