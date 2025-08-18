@@ -78,8 +78,18 @@ namespace Sanicball
             activeScoreboard.DisplayResults(manager);
             ExportResults(manager);
 
-            RacePlayer[] movablePlayers = manager.Players.Where(a => a.RaceFinished && !a.FinishReport.Disqualified).OrderBy(a => a.FinishReport.Position).ToArray();
-            for (int i = 0; i < movablePlayers.Length; i++)
+            List<RacePlayer> movablePlayers = new List<RacePlayer>();
+            for (int i = 0; i < manager.PlayerCount; i++)
+            {
+                RacePlayer rp = manager[i];
+                if (rp.RaceFinished && !rp.FinishReport.Disqualified)
+                {
+                    movablePlayers.Add(rp);
+                }
+            }
+            movablePlayers.Sort((a, b) => a.FinishReport.Position.CompareTo(b.FinishReport.Position));
+
+            for (int i = 0; i < movablePlayers.Count; i++)
             {
                 Vector3 spawnpoint = lowerPositionsSpawnpoint.position;
                 if (i < topPositionSpawnpoints.Length)
@@ -119,9 +129,17 @@ namespace Sanicball
                 using (var writer = new StreamWriter(filePath, false))
                 {
                     writer.WriteLine("Placement\tPseudo\tTime");
-                    var players = manager.Players.Where(p => p.RaceFinished && !p.FinishReport.Disqualified)
-                        .OrderBy(p => p.FinishReport.Position);
-                    foreach (var p in players)
+                    List<RacePlayer> players = new List<RacePlayer>();
+                    for (int i = 0; i < manager.PlayerCount; i++)
+                    {
+                        RacePlayer rp = manager[i];
+                        if (rp.RaceFinished && !rp.FinishReport.Disqualified)
+                        {
+                            players.Add(rp);
+                        }
+                    }
+                    players.Sort((a, b) => a.FinishReport.Position.CompareTo(b.FinishReport.Position));
+                    foreach (RacePlayer p in players)
                     {
                         string pos = p.FinishReport.Position.ToString();
                         string name = p.Name;
