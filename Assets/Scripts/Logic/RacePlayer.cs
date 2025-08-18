@@ -72,9 +72,7 @@ namespace Sanicball.Logic
         //Backward movement check
         private float backwardTimer;
         private bool backwardCheckActive;
-        private Vector3 checkpointForward;
-        private Vector3 respawnPosition;
-        private Rigidbody rb;
+        private float closestDistanceToNextCheckpoint;
 
         //Events
         public event EventHandler<NextCheckpointPassArgs> NextCheckpointPassed;
@@ -122,7 +120,6 @@ namespace Sanicball.Logic
             ball.RespawnRequested += Ball_RespawnRequested;
             currentCheckpointPos = sr.checkpoints[0].transform.position;
             this.ball = ball;
-            rb = ball.GetComponent<Rigidbody>();
             backwardTimer = 0f;
             backwardCheckActive = false;
 
@@ -289,8 +286,7 @@ namespace Sanicball.Logic
             }
 
             //Prepare backward movement check
-            respawnPosition = sr.checkpoints[currentCheckpointIndex].transform.position;
-            checkpointForward = sr.checkpoints[currentCheckpointIndex].transform.forward;
+            closestDistanceToNextCheckpoint = Vector3.Distance(ball.transform.position, nextCheckpoint.transform.position);
             backwardTimer = 0f;
             backwardCheckActive = true;
 
@@ -339,9 +335,8 @@ namespace Sanicball.Logic
 
             if (backwardCheckActive)
             {
-                Vector3 toBall = ball.transform.position - respawnPosition;
-                float dot = Vector3.Dot(toBall, checkpointForward);
-                if (dot < 0f)
+                float currentDistance = Vector3.Distance(ball.transform.position, nextCheckpoint.transform.position);
+                if (currentDistance > closestDistanceToNextCheckpoint + 1f)
                 {
                     backwardTimer += dt;
                     if (backwardTimer >= 10f)
@@ -352,6 +347,12 @@ namespace Sanicball.Logic
                         if (WrongWayRespawned != null)
                             WrongWayRespawned(this, EventArgs.Empty);
                     }
+                }
+                else
+                {
+                    backwardTimer = 0f;
+                    if (currentDistance < closestDistanceToNextCheckpoint)
+                        closestDistanceToNextCheckpoint = currentDistance;
                 }
             }
         }
