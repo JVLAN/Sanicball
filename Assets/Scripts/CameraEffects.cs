@@ -48,9 +48,6 @@ namespace Sanicball {
 			blur.replacementClear = motionBlurReplacementClearShader;
 			blur.noiseTexture = motionBlurNoiseTexture;
 
-			if (ActiveData.ESportsFullyReady)
-			{
-			}
 
 			EnableEffects();
 		}

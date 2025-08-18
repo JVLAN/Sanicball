@@ -70,18 +70,6 @@ namespace Sanicball
             slidePosition = slidePositionMax;
             ShuffleSongs();
 
-            if (ActiveData.ESportsFullyReady)
-            {
-                Sanicball.Logic.MatchManager m = FindObjectOfType<Sanicball.Logic.MatchManager>();
-                if (!m.InLobby) {
-                    List<Song> p = playlist.ToList();
-                    Song s = new Song();
-                    s.name = "Skrollex - Bungee Ride";
-                    s.clip = ActiveData.ESportsMusic;
-                    p.Insert(0,s);
-                    playlist = p.ToArray();
-                }
-            }
             
 
             aSource.clip = playlist[0].clip;

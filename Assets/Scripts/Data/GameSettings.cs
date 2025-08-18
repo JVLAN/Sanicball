@@ -23,12 +23,12 @@ namespace Sanicball.Data
         [Header("Graphics")]
         public int aa = 0;
 
-        public bool trails = true;
+        public bool trails = false;
         public bool shadows = true;
         public bool motionBlur = false;
         public bool bloom = false;
-		public ReflectionQuality reflectionQuality = ReflectionQuality.Off;
-        public bool eSportsReady = false;
+                public ReflectionQuality reflectionQuality = ReflectionQuality.Off;
+        public bool showPlayerNames = false;
 
         [Header("Gameplay")]
         public bool useOldControls = false;
@@ -65,7 +65,7 @@ namespace Sanicball.Data
             motionBlur = original.motionBlur;
             bloom = original.bloom;
             reflectionQuality = original.reflectionQuality;
-            eSportsReady = original.eSportsReady;
+            showPlayerNames = original.showPlayerNames;
 
             useOldControls = original.useOldControls;
             oldControlsMouseSpeed = original.oldControlsMouseSpeed;
