@@ -51,20 +51,36 @@ namespace Sanicball.UI
 
         private IEnumerator Start()
         {
-            var charList = ActiveData.Characters.OrderBy(a => a.tier).ToArray();
+            var charList = ActiveData.Characters
+                .Select((c, index) => new { Char = c, Index = index })
+                .OrderBy(x => x.Char.tier)
+                .ThenBy(x => x.Index)
+                .ToList();
+
+            //Move new balls (15, 16, 17) directly after the first three characters
+            int insertPos = 3;
+            foreach (int specialIndex in new[] { 15, 16, 17 })
+            {
+                var item = charList.FirstOrDefault(x => x.Index == specialIndex);
+                if (item != null)
+                {
+                    charList.Remove(item);
+                    charList.Insert(insertPos++, item);
+                }
+            }
 
             CharacterSelectEntry cancelEnt = Instantiate(entryPrefab);
             cancelEnt.IconImage.sprite = cancelIconSprite;
             cancelEnt.transform.SetParent(entryContainer.transform, false);
             activeEntries.Add(cancelEnt);
 
-            for (int i = 0; i < charList.Length; i++)
+            foreach (var entry in charList)
             {
-                if (!charList[i].hidden)
+                if (!entry.Char.hidden)
                 {
                     CharacterSelectEntry characterEnt = Instantiate(entryPrefab);
 
-                    characterEnt.Init(charList[i]);
+                    characterEnt.Init(entry.Char);
                     characterEnt.transform.SetParent(entryContainer.transform, false);
                     activeEntries.Add(characterEnt);
                 }

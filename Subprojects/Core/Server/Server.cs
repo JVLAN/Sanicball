@@ -70,8 +70,11 @@ namespace SanicballCore.Server
             CharacterTier.Normal,       //Bloze
             CharacterTier.Normal,       //Vactor
             CharacterTier.Hyperspeed,   //Super Sanic
-            CharacterTier.Odd,       //Metal Sanic
+            CharacterTier.Odd,          //Metal Sanic
             CharacterTier.Odd,          //Ogre
+            CharacterTier.Normal,       //Ball 15
+            CharacterTier.Normal,       //Ball 16
+            CharacterTier.Normal,       //Ball 17
         };
 
         public event EventHandler<LogArgs> OnLog;
