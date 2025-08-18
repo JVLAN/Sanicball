@@ -824,13 +824,13 @@ namespace SanicballCore.Server
                             catch (JsonException ex)
                             {
                                 Log("Error reading client connection approval: \"" + ex.Message + "\". Client rejected.", LogType.Warning);
-                                msg.SenderConnection.Deny("Invalid client info! You are likely using a different game version than the server.");
+                                msg.SenderConnection.Deny("Invalid client info! You are likely using a different game version than the server (use JVLAN edition).");
                                 break;
                             }
 
                             if (clientInfo.Version != GameVersion.AS_FLOAT || clientInfo.IsTesting != GameVersion.IS_TESTING)
                             {
-                                msg.SenderConnection.Deny("Wrong game version.");
+                                msg.SenderConnection.Deny("Wrong game version (use JVLAN edition).");
                                 break;
                             }
 
