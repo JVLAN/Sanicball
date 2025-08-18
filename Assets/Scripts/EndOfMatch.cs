@@ -1,8 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Sanicball.Data;
 using Sanicball.Logic;
 using Sanicball.UI;
+using SanicballCore;
 using UnityEngine;
 
 namespace Sanicball
@@ -22,6 +26,7 @@ namespace Sanicball
 
         private Scoreboard activeScoreboard;
         private bool hasActivatedOnce = false;
+        private bool scoresSaved = false;
 
         private List<RacePlayer> movedPlayers = new List<RacePlayer>();
 
@@ -74,6 +79,12 @@ namespace Sanicball
             }
             activeScoreboard.DisplayResults(manager);
 
+            if (!scoresSaved)
+            {
+                SaveResults(manager);
+                scoresSaved = true;
+            }
+
             RacePlayer[] movablePlayers = manager.Players.Where(a => a.RaceFinished && !a.FinishReport.Disqualified).OrderBy(a => a.FinishReport.Position).ToArray();
             for (int i = 0; i < movablePlayers.Length; i++)
             {
@@ -93,6 +104,47 @@ namespace Sanicball
                     playerToMove.Ball.gameObject.layer = LayerMask.NameToLayer("Racer");
                     movedPlayers.Add(playerToMove);
                 }
+            }
+        }
+
+        private void SaveResults(RaceManager manager)
+        {
+            try
+            {
+                string stageName = ActiveData.Stages[manager.Settings.StageId].name;
+                foreach (char c in Path.GetInvalidFileNameChars())
+                {
+                    stageName = stageName.Replace(c, '_');
+                }
+
+                string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+                string fileName = string.Format("{0}_{1}.txt", stageName, timestamp);
+
+                string gameDir = Directory.GetParent(Application.dataPath).FullName;
+                string logDir = Path.Combine(gameDir, "log");
+                if (!Directory.Exists(logDir))
+                {
+                    Directory.CreateDirectory(logDir);
+                }
+
+                string path = Path.Combine(logDir, fileName);
+
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    sw.WriteLine("Placement\tPseudo\tTime");
+                    var players = manager.Players
+                        .Where(p => p.RaceFinished && !p.FinishReport.Disqualified)
+                        .OrderBy(p => p.FinishReport.Position);
+                    foreach (var p in players)
+                    {
+                        string time = Utils.GetTimeString(p.FinishReport.Time);
+                        sw.WriteLine(string.Format("{0}\t{1}\t{2}", p.FinishReport.Position, p.Name, time));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to save results: " + ex.Message);
             }
         }
     }
