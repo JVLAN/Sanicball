@@ -455,15 +455,17 @@ PlayerSettings:
   WebGL::useEmbeddedResources: 0
   XboxOne::enus: 1
   stringPropertyNames:
+  - Build_ServiceEnabled::Build_ServiceEnabled
   - UNet_ServiceEnabled::UNet_ServiceEnabled
   - WebGL::emscriptenArgs
   - WebGL::template
   - additionalIl2CppArgs::additionalIl2CppArgs
-  UNet_ServiceEnabled::UNet_ServiceEnabled: False
+  Build_ServiceEnabled::Build_ServiceEnabled: False
+  UNet_ServiceEnabled::UNet_ServiceEnabled: True
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
   additionalIl2CppArgs::additionalIl2CppArgs: 
-  cloudProjectId: f860580c-f6cf-40ab-bca8-8a6281f17439
-  projectName: Sanicball
-  organizationId: bk-tn
+  cloudProjectId: 6e92a73e-d3dc-4a60-8030-41dfa60d4f83
+  projectName: Sanicball v0.8.2
+  organizationId: poli
   cloudEnabled: 0
