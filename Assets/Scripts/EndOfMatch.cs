@@ -4,6 +4,10 @@ using System.Linq;
 using Sanicball.Logic;
 using Sanicball.UI;
 using UnityEngine;
+using System.IO;
+using System.Text;
+using Sanicball.Data;
+using SanicballCore;
 
 namespace Sanicball
 {
@@ -22,6 +26,7 @@ namespace Sanicball
 
         private Scoreboard activeScoreboard;
         private bool hasActivatedOnce = false;
+        private bool scoresExported = false;
 
         private List<RacePlayer> movedPlayers = new List<RacePlayer>();
 
@@ -73,6 +78,11 @@ namespace Sanicball
                 //cam.enabled = true;
             }
             activeScoreboard.DisplayResults(manager);
+            if (!scoresExported)
+            {
+                ExportResults(manager);
+                scoresExported = true;
+            }
 
             RacePlayer[] movablePlayers = manager.Players.Where(a => a.RaceFinished && !a.FinishReport.Disqualified).OrderBy(a => a.FinishReport.Position).ToArray();
             for (int i = 0; i < movablePlayers.Length; i++)
@@ -94,6 +104,40 @@ namespace Sanicball
                     movedPlayers.Add(playerToMove);
                 }
             }
+        }
+
+        private void ExportResults(RaceManager manager)
+        {
+            var finishedPlayers = manager.Players
+                .Where(p => p.RaceFinished && !p.FinishReport.Disqualified)
+                .OrderBy(p => p.FinishReport.Position);
+            if (!finishedPlayers.Any())
+            {
+                return;
+            }
+            string mapName = ActiveData.Stages[manager.Settings.StageId].name;
+            string timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            string fileName = SanitizeFileName($"{mapName}_{timeStamp}.txt");
+            string path = Path.Combine(Application.persistentDataPath, fileName);
+            var sb = new StringBuilder();
+            sb.AppendLine("Placement\tPseudo\tTime");
+            foreach (var p in finishedPlayers)
+            {
+                sb.AppendLine($"{p.FinishReport.Position}\t{p.Name}\t{Utils.GetTimeString(p.FinishReport.Time)}");
+            }
+            using (var writer = new StreamWriter(path, false))
+            {
+                writer.Write(sb.ToString());
+            }
+        }
+
+        private static string SanitizeFileName(string name)
+        {
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                name = name.Replace(c, '_');
+            }
+            return name;
         }
     }
 }
