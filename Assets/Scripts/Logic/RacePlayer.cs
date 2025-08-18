@@ -339,7 +339,7 @@ namespace Sanicball.Logic
                 if (currentDistance > closestDistanceToNextCheckpoint + 1f)
                 {
                     backwardTimer += dt;
-                    if (backwardTimer >= 10f)
+                    if (backwardTimer >= 3f)
                     {
                         backwardCheckActive = false;
                         backwardTimer = 0f;
