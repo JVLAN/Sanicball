@@ -73,6 +73,7 @@ namespace Sanicball.Logic
         private float backwardTimer;
         private bool backwardCheckActive;
         private Vector3 checkpointForward;
+        private Vector3 respawnPosition;
         private Rigidbody rb;
 
         //Events
@@ -288,9 +289,8 @@ namespace Sanicball.Logic
             }
 
             //Prepare backward movement check
-            Vector3 currentPos = sr.checkpoints[currentCheckpointIndex].transform.position;
-            Vector3 nextPos = nextCheckpoint.transform.position;
-            checkpointForward = (nextPos - currentPos).normalized;
+            respawnPosition = sr.checkpoints[currentCheckpointIndex].transform.position;
+            checkpointForward = sr.checkpoints[currentCheckpointIndex].transform.forward;
             backwardTimer = 0f;
             backwardCheckActive = true;
 
@@ -339,7 +339,8 @@ namespace Sanicball.Logic
 
             if (backwardCheckActive)
             {
-                float dot = Vector3.Dot(rb.velocity, checkpointForward);
+                Vector3 toBall = ball.transform.position - respawnPosition;
+                float dot = Vector3.Dot(toBall, checkpointForward);
                 if (dot < 0f)
                 {
                     backwardTimer += dt;
@@ -351,10 +352,6 @@ namespace Sanicball.Logic
                         if (WrongWayRespawned != null)
                             WrongWayRespawned(this, EventArgs.Empty);
                     }
-                }
-                else
-                {
-                    backwardTimer = 0f;
                 }
             }
         }
