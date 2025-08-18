@@ -127,7 +127,7 @@ MonoBehaviour:
       jumpHeight: 14
       grip: 0
     material: {fileID: 2100000, guid: 2ab3091afa74e1c41971247ba2981cff, type: 2}
-    icon: {fileID: 21300000, guid: e1871d1abf47abf45ae651d7594c30eb, type: 3}
+    icon: {fileID: 21300000, guid: 34f7713718714ae4ca4f1123188592da, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
     minimapIcon: {fileID: 2100000, guid: 854cef05583eac843a1068cd8c3b211c, type: 2}
     trail: {fileID: 2100000, guid: 34fde866a14b20048baebd76cf043737, type: 2}
@@ -136,18 +136,18 @@ MonoBehaviour:
     collisionMesh: {fileID: 0}
     tier: 0
     hidden: 0
-  - name: CyberShapping
-    artBy: Cyber Shapping Team
+  - name: Cyber Shaping
+    artBy: Cyber Shaping Team
     stats:
       rollSpeed: 100
       airSpeed: 15
       jumpHeight: 14
       grip: 0
-    material: {fileID: 2100000, guid: 4ae4ac68d99c7e34aaa661ecc46167e5, type: 2}
-    icon: {fileID: 21300000, guid: b4a9d95e11c91a24ab63ef6a92713ec7, type: 3}
+    material: {fileID: 2100000, guid: 942a0e82222bf6547b2f37c3eda41eab, type: 2}
+    icon: {fileID: 21300000, guid: 71a3c226d2aaba049afed25c9716b152, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
     minimapIcon: {fileID: 2100000, guid: 854cef05583eac843a1068cd8c3b211c, type: 2}
-    trail: {fileID: 2100000, guid: 4446c33c7ecf55f4491ac4a819996f8c, type: 2}
+    trail: {fileID: 2100000, guid: b6acb21898408264a9c63a10e54d4dea, type: 2}
     ballSize: 1
     alternativeMesh: {fileID: 0}
     collisionMesh: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
       jumpHeight: 14
       grip: 0
     material: {fileID: 2100000, guid: c44b1a349a982824d9f8871c8b3ff1b9, type: 2}
-    icon: {fileID: 21300000, guid: 82ba2f7556ff92547a874f7163cb8ee2, type: 3}
+    icon: {fileID: 21300000, guid: 69829433590663b4bad176d65eea024c, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
     minimapIcon: {fileID: 2100000, guid: 854cef05583eac843a1068cd8c3b211c, type: 2}
     trail: {fileID: 2100000, guid: 64979484a045bc54a8d4f39ef84cefc6, type: 2}
@@ -397,10 +397,6 @@ MonoBehaviour:
     verbose: 1
     disabled: 1
   christmasHat: {fileID: 132204, guid: 59d3895ecfc783e4289b0c51098a0429, type: 2}
-  eSportsTrail: {fileID: 2100000, guid: 535ce71ad14791d40b6cbe98a2276283, type: 2}
-  eSportsHat: {fileID: 132204, guid: 8db695c5167175b4f8c02e1d1f7e5b99, type: 2}
-  eSportsMusic: {fileID: 8300000, guid: 44aeddca0c186224090a76d97139eaa4, type: 3}
-  eSportsPrefab: {fileID: 11400000, guid: f55190f64bbb0c349bcd0f128756a753, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -414,11 +410,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: characters.Array.data[1].material
-      value:
+      value: 
       objectReference: {fileID: 2100000, guid: 06f88fe9a59efb148aee81770af439ea, type: 2}
     - target: {fileID: 0}
       propertyPath: characters.Array.data[1].minimapIcon
-      value:
+      value: 
       objectReference: {fileID: 2100000, guid: 26967b799887ff8458328c09143cc727, type: 2}
     - target: {fileID: 0}
       propertyPath: gameJolt.gameID
@@ -446,7 +442,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: characters.Array.data[11].collisionMesh
-      value:
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: characters.Array.data[16].hyperspeed

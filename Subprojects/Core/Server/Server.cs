@@ -60,7 +60,7 @@ namespace SanicballCore.Server
             CharacterTier.Normal,       //Knackles
             CharacterTier.Normal,       //Taels
             CharacterTier.Normal,       //JVLAN
-            CharacterTier.Normal,       //CyberShapping
+            CharacterTier.Normal,       //CyberShaping
             CharacterTier.Normal,       //Poli Systems
             CharacterTier.Normal,       //Ame
             CharacterTier.Normal,       //Shedew
