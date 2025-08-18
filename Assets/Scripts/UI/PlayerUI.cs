@@ -60,6 +60,7 @@ namespace Sanicball.UI
                 {
                     targetPlayer.NextCheckpointPassed -= TargetPlayer_NextCheckpointPassed;
                     targetPlayer.Respawned -= TargetPlayer_Respawned;
+                    targetPlayer.WrongWayRespawned -= TargetPlayer_WrongWayRespawned;
                     Destroy(checkpointMarker.gameObject);
                     foreach (Marker m in playerMarkers)
                     {
@@ -71,6 +72,7 @@ namespace Sanicball.UI
 
                 targetPlayer.NextCheckpointPassed += TargetPlayer_NextCheckpointPassed;
                 targetPlayer.Respawned += TargetPlayer_Respawned;
+                targetPlayer.WrongWayRespawned += TargetPlayer_WrongWayRespawned;
 
                 //Marker following next checkpoint
                 checkpointMarker = Instantiate(markerPrefab);
@@ -117,7 +119,7 @@ namespace Sanicball.UI
         }
 
         public Camera TargetCamera { get; set; }
-        
+
         private void TargetPlayer_Respawned(object sender, EventArgs e)
         {
             UISound.Play(respawnSound);
@@ -128,6 +130,30 @@ namespace Sanicball.UI
             checkpointTimeDiffField.color = Color.red;
             checkpointTimeDiffField.text = "+" + Utils.GetTimeString(TimeSpan.FromSeconds(5));
             checkpointTimeDiffField.GetComponent<ToggleCanvasGroup>().ShowTemporarily(2f);
+        }
+
+        private void TargetPlayer_WrongWayRespawned(object sender, EventArgs e)
+        {
+            var go = new GameObject("WrongWayMessage");
+            go.transform.SetParent(fieldContainer, false);
+
+            var text = go.AddComponent<Text>();
+            text.font = checkpointTimeField.font;
+            text.text = "Chez nous pas de glich de ce style :) pas fair play!";
+            text.alignment = TextAnchor.MiddleCenter;
+            text.fontSize = 48;
+            text.color = Color.red;
+
+            var rect = text.GetComponent<RectTransform>();
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+
+            go.AddComponent<CanvasGroup>();
+            var toggle = go.AddComponent<ToggleCanvasGroup>();
+            toggle.ShowTemporarily(3f);
+            Destroy(go, 3f);
         }
 
         private void TargetPlayer_NextCheckpointPassed(object sender, NextCheckpointPassArgs e)

@@ -69,9 +69,16 @@ namespace Sanicball.Logic
         private MatchPlayer associatedMatchPlayer;
         private bool waitingForCheckpointMessage;
 
+        //Backward movement check
+        private float backwardTimer;
+        private bool backwardCheckActive;
+        private Vector3 checkpointForward;
+        private Rigidbody rb;
+
         //Events
         public event EventHandler<NextCheckpointPassArgs> NextCheckpointPassed;
         public event EventHandler Respawned;
+        public event EventHandler WrongWayRespawned;
         public event EventHandler FinishLinePassed;
         public event EventHandler Destroyed;
 
@@ -114,6 +121,9 @@ namespace Sanicball.Logic
             ball.RespawnRequested += Ball_RespawnRequested;
             currentCheckpointPos = sr.checkpoints[0].transform.position;
             this.ball = ball;
+            rb = ball.GetComponent<Rigidbody>();
+            backwardTimer = 0f;
+            backwardCheckActive = false;
 
             ball.CameraCreated += (sender, e) =>
             {
@@ -177,6 +187,8 @@ namespace Sanicball.Logic
         {
             if (e.CheckpointPassed == nextCheckpoint)
             {
+                backwardCheckActive = false;
+                backwardTimer = 0f;
                 if (ball.Type == BallType.Player && ball.CtrlType != ControlType.None)
                 {
                     if (!waitingForCheckpointMessage)
@@ -275,6 +287,13 @@ namespace Sanicball.Logic
                 ballCamera.SetDirection(sr.checkpoints[currentCheckpointIndex].transform.rotation);
             }
 
+            //Prepare backward movement check
+            Vector3 currentPos = sr.checkpoints[currentCheckpointIndex].transform.position;
+            Vector3 nextPos = nextCheckpoint.transform.position;
+            checkpointForward = (nextPos - currentPos).normalized;
+            backwardTimer = 0f;
+            backwardCheckActive = true;
+
             //Time penalty
             lapTime += 5;
 
@@ -316,6 +335,27 @@ namespace Sanicball.Logic
             if (timeout > 0)
             {
                 timeout = Mathf.Max(0, timeout - Time.deltaTime);
+            }
+
+            if (backwardCheckActive)
+            {
+                float dot = Vector3.Dot(rb.velocity, checkpointForward);
+                if (dot < 0f)
+                {
+                    backwardTimer += dt;
+                    if (backwardTimer >= 10f)
+                    {
+                        backwardCheckActive = false;
+                        backwardTimer = 0f;
+                        ball.RequestRespawn();
+                        if (WrongWayRespawned != null)
+                            WrongWayRespawned(this, EventArgs.Empty);
+                    }
+                }
+                else
+                {
+                    backwardTimer = 0f;
+                }
             }
         }
 
