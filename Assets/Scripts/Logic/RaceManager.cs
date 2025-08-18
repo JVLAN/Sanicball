@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Sanicball.Data;
 using Sanicball.Gameplay;
@@ -311,7 +313,36 @@ namespace Sanicball.Logic
             //TODO: Make proper scoreboard and have it trigger when only local players have finished
             if (!players.Any(a => a.IsPlayer && !a.RaceFinished))
             {
+                ExportResults();
                 StageReferences.Active.endOfMatchHandler.Activate(this);
+            }
+        }
+
+        private void ExportResults()
+        {
+            try
+            {
+                string mapName = ActiveData.Stages[settings.StageId].name;
+                string sanitizedMapName = new string(mapName.Where(c => !Path.GetInvalidFileNameChars().Contains(c)).ToArray()).Replace(' ', '_');
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                string directory = Path.Combine(Application.persistentDataPath, "Scores");
+                Directory.CreateDirectory(directory);
+                string filePath = Path.Combine(directory, sanitizedMapName + "_" + timestamp + ".txt");
+
+                var lines = new List<string>();
+                lines.Add("Placement\tName\tTime");
+
+                foreach (var p in players.Where(a => a.RaceFinished && !a.FinishReport.Disqualified).OrderBy(a => a.FinishReport.Position))
+                {
+                    string line = string.Format("{0}\t{1}\t{2}", p.FinishReport.Position, p.Name, Utils.GetTimeString(p.FinishReport.Time));
+                    lines.Add(line);
+                }
+
+                File.WriteAllLines(filePath, lines.ToArray());
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Failed to export race results: " + e);
             }
         }
 
