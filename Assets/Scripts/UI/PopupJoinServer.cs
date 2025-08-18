@@ -16,6 +16,16 @@ namespace Sanicball.UI
         private const int LOWEST_PORT_NUM = 1024;
         private const int HIGHEST_PORT_NUM = 49151;
 
+        private void OnEnable()
+        {
+            // Ensure input fields remain usable on high resolutions where
+            // they might lose focus or become non-interactable.
+            ipInput.interactable = true;
+            portInput.interactable = true;
+            ipInput.Select();
+            ipInput.ActivateInputField();
+        }
+
         public void Connect()
         {
             portOutput.text = "";
