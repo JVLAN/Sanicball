@@ -43,8 +43,11 @@ namespace Sanicball.UI
 
         public void Apply()
         {
+            tempSettings.Validate();
             ActiveData.GameSettings.CopyValues(tempSettings);
+            ActiveData.GameSettings.Validate();
             ActiveData.GameSettings.Apply(true);
+            ActiveData.SaveAllData();
         }
 
         public void RevertToCurrent()
