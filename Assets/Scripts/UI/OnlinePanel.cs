@@ -79,15 +79,27 @@ namespace Sanicball.UI
                     foreach (string entry in entries)
                     {
                         int seperationPoint = entry.LastIndexOf(':');
+                        if (seperationPoint <= 0 || seperationPoint >= entry.Length - 1)
+                        {
+                            Debug.LogWarning("Skipping malformed server list entry: " + entry);
+                            continue;
+                        }
+
                         string ip = entry.Substring(0, seperationPoint);
                         string port = entry.Substring(seperationPoint + 1, entry.Length - (seperationPoint + 1));
 
                         int portInt;
                         if (int.TryParse(port, out portInt))
                         {
-                            System.Threading.Thread discoverThread = new System.Threading.Thread(() => { discoveryClient.DiscoverKnownPeer(ip, portInt); });
-                            discoverThread.Start();
-                            serverBrowserIPs.Add(ip);
+                            try
+                            {
+                                discoveryClient.DiscoverKnownPeer(ip, portInt);
+                                serverBrowserIPs.Add(ip);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogError("Failed to contact server browser entry at " + entry + ": " + ex.Message);
+                            }
                         }
                     }
 					serverCountField.text = "0 servers";
