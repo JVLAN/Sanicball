@@ -367,7 +367,13 @@ namespace Sanicball.Logic
 
             //Create this client
             myGuid = Guid.NewGuid();
-            messenger.SendMessage(new ClientJoinedMessage(myGuid, ActiveData.GameSettings.nickname));
+            string nickname = ActiveData.GameSettings.nickname;
+            if (string.IsNullOrEmpty(nickname))
+            {
+                nickname = "Player";
+            }
+
+            messenger.SendMessage(new ClientJoinedMessage(myGuid, nickname));
         }
 
         private void LocalChatMessageSent(object sender, UI.ChatMessageArgs args)

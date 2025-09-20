@@ -85,6 +85,8 @@ namespace Sanicball.Data
         public void LoadAll()
         {
             Load("GameSettings.json", ref gameSettings);
+            gameSettings.Validate();
+            SaveGameSettings();
             Load("GameKeybinds.json", ref keybinds);
             Load("MatchSettings.json", ref matchSettings);
             Load("Records.json", ref raceRecords);
@@ -143,6 +145,17 @@ namespace Sanicball.Data
                 sw.Write(data);
             }
             Debug.Log(filename + " saved successfully.");
+        }
+
+        public static void SaveGameSettings()
+        {
+            if (instance == null)
+            {
+                Debug.LogWarning("Tried to save game settings before ActiveData was initialized.");
+                return;
+            }
+
+            instance.Save("GameSettings.json", instance.gameSettings);
         }
 
         #endregion Saving and loading
