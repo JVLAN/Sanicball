@@ -39,6 +39,8 @@ namespace Sanicball.Data
 
         #region Properties
 
+        public static ActiveData Instance { get { return instance; } }
+
         public static GameSettings GameSettings { get { return instance.gameSettings; } }
         public static KeybindCollection Keybinds { get { return instance.keybinds; } }
         public static MatchSettings MatchSettings { get { return instance.matchSettings; } set { instance.matchSettings = value; } }
@@ -85,6 +87,7 @@ namespace Sanicball.Data
         public void LoadAll()
         {
             Load("GameSettings.json", ref gameSettings);
+            gameSettings.Validate();
             Load("GameKeybinds.json", ref keybinds);
             Load("MatchSettings.json", ref matchSettings);
             Load("Records.json", ref raceRecords);
@@ -96,6 +99,14 @@ namespace Sanicball.Data
             Save("GameKeybinds.json", keybinds);
             Save("MatchSettings.json", matchSettings);
             Save("Records.json", raceRecords);
+        }
+
+        public static void SaveAllData()
+        {
+            if (instance != null)
+            {
+                instance.SaveAll();
+            }
         }
 
         private void Load<T>(string filename, ref T output)

@@ -35,10 +35,40 @@ namespace Sanicball.UI
             discoveryClient.DiscoverLocalPeers(25000);
             latestLocalRefreshTime = DateTime.Now;
 
-			serverBrowserRequester = new WWW(ActiveData.GameSettings.serverListURL);
+            var serverListUrl = ActiveData.GameSettings.serverListURL;
+            serverListUrl = string.IsNullOrWhiteSpace(serverListUrl) ? string.Empty : serverListUrl.Trim();
 
-            serverCountField.text = "Refreshing servers, hang on...";
-            errorField.enabled = false;
+            bool requestedBrowser = false;
+
+            if (string.IsNullOrEmpty(serverListUrl))
+            {
+                serverBrowserRequester = null;
+                errorField.enabled = true;
+                errorField.text = "Server list URL is empty. Update it in Options > Online.";
+                serverCountField.text = "Showing LAN servers only.";
+            }
+            else
+            {
+                try
+                {
+                    serverBrowserRequester = new WWW(serverListUrl);
+                    requestedBrowser = true;
+                }
+                catch (Exception ex)
+                {
+                    serverBrowserRequester = null;
+                    errorField.enabled = true;
+                    errorField.text = "Server list URL is invalid. Update it in Options > Online.";
+                    serverCountField.text = "Cannot access server list URL!";
+                    Debug.LogError("Failed to request servers from '" + serverListUrl + "' - " + ex.Message);
+                }
+            }
+
+            if (requestedBrowser)
+            {
+                serverCountField.text = "Refreshing servers, hang on...";
+                errorField.enabled = false;
+            }
 
             //Clear old servers
             foreach (var serv in servers)
