@@ -43,8 +43,11 @@ namespace Sanicball.UI
 
         public void Apply()
         {
+            tempSettings.Validate();
             ActiveData.GameSettings.CopyValues(tempSettings);
+            ActiveData.GameSettings.Validate();
             ActiveData.GameSettings.Apply(true);
+            ActiveData.SaveGameSettings();
         }
 
         public void RevertToCurrent()
@@ -66,7 +69,7 @@ namespace Sanicball.UI
         {
             if (!gameObject.activeInHierarchy) return;
 
-            nickname.text = tempSettings.nickname;
+            nickname.text = tempSettings.nickname ?? string.Empty;
 			serverListURL.text = tempSettings.serverListURL;
             gameJoltAccount.text = (!string.IsNullOrEmpty(tempSettings.gameJoltToken)) ? "Linked as " + tempSettings.gameJoltUsername : "Not linked";
 
@@ -111,7 +114,7 @@ namespace Sanicball.UI
 
         public void SetNickname(string nick)
         {
-            tempSettings.nickname = nick;
+            tempSettings.nickname = (nick ?? string.Empty).Trim();
             UpdateFields();
         }
 

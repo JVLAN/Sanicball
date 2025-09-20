@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Sanicball.Data
 {
@@ -6,8 +7,11 @@ namespace Sanicball.Data
     public class GameSettings
     {
         [Header("Online")]
+        public const string DefaultServerListUrl = "https://sanicball.bdgr.zone/servers/";
+        public const string DefaultNickname = "Unknown ball";
+
         public string nickname = "";
-		public string serverListURL = "https://sanicball.bdgr.zone/servers/";
+        public string serverListURL = DefaultServerListUrl;
 
         public string gameJoltUsername;
         public string gameJoltToken;
@@ -49,7 +53,7 @@ namespace Sanicball.Data
         public void CopyValues(GameSettings original)
         {
             nickname = original.nickname;
-			serverListURL = original.serverListURL;
+            serverListURL = original.serverListURL;
             gameJoltUsername = original.gameJoltUsername;
             gameJoltToken = original.gameJoltToken;
 
@@ -80,6 +84,13 @@ namespace Sanicball.Data
         //they should be validated when loaded
         public void Validate()
         {
+            //Nickname
+            nickname = (nickname ?? string.Empty).Trim();
+            if (nickname.Length == 0)
+            {
+                nickname = DefaultNickname;
+            }
+
             //Resolution
             if (resolution >= Screen.resolutions.Length)
                 resolution = Screen.resolutions.Length - 1;
@@ -94,6 +105,25 @@ namespace Sanicball.Data
             oldControlsKbSpeed = Mathf.Clamp(oldControlsKbSpeed, 0.5f, 10f);
             //Sound volume
             soundVolume = Mathf.Clamp(soundVolume, 0f, 1f);
+
+            //Server browser URL
+            if (string.IsNullOrWhiteSpace(serverListURL))
+            {
+                serverListURL = DefaultServerListUrl;
+            }
+            else
+            {
+                var trimmedUrl = serverListURL.Trim();
+                Uri parsedUri;
+                if (Uri.TryCreate(trimmedUrl, UriKind.Absolute, out parsedUri))
+                {
+                    serverListURL = trimmedUrl;
+                }
+                else
+                {
+                    serverListURL = DefaultServerListUrl;
+                }
+            }
         }
 
         public void Apply(bool changeWindow)

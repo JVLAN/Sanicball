@@ -85,6 +85,7 @@ namespace Sanicball.Data
         public void LoadAll()
         {
             Load("GameSettings.json", ref gameSettings);
+            gameSettings.Validate();
             Load("GameKeybinds.json", ref keybinds);
             Load("MatchSettings.json", ref matchSettings);
             Load("Records.json", ref raceRecords);
@@ -96,6 +97,22 @@ namespace Sanicball.Data
             Save("GameKeybinds.json", keybinds);
             Save("MatchSettings.json", matchSettings);
             Save("Records.json", raceRecords);
+        }
+
+        public static void SaveGameSettings()
+        {
+            if (instance == null)
+            {
+                instance = Object.FindObjectOfType<ActiveData>();
+                if (instance == null)
+                {
+                    Debug.LogWarning("Tried to save game settings before ActiveData was initialized.");
+                    return;
+                }
+            }
+
+            instance.gameSettings.Validate();
+            instance.Save("GameSettings.json", instance.gameSettings);
         }
 
         private void Load<T>(string filename, ref T output)
