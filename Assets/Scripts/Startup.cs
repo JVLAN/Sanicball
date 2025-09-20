@@ -12,10 +12,12 @@ namespace Sanicball
 
         public void ValidateNickname()
         {
-            if (nicknameField.text.Trim() != "")
+            string trimmedNickname = nicknameField.text.Trim();
+            if (trimmedNickname != "")
             {
                 setNicknameGroup.alpha = 0f;
-                ActiveData.GameSettings.nickname = nicknameField.text;
+                ActiveData.GameSettings.nickname = trimmedNickname;
+                ActiveData.SaveGameSettings();
                 intro.enabled = true;
             }
         }

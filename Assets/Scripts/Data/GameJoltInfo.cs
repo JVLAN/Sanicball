@@ -117,6 +117,7 @@ namespace Sanicball.Data
                 //Not legit! Remove info
                 ActiveData.GameSettings.gameJoltUsername = string.Empty;
                 ActiveData.GameSettings.gameJoltToken = string.Empty;
+                ActiveData.SaveGameSettings();
             }
             GJAPI.Users.VerifyCallback -= CheckIfSignedInCallback;
         }
